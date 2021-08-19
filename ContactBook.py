@@ -30,3 +30,11 @@ class ContactBook:
         data = json.load(file)
         file.close()
         return data['contacts']
+    
+    def update_contacts(self,data):
+        file = open(self.log_file,'w')
+        new_data = {"contacts":data}
+        json_data = json.dumps(new_data,indent=4)
+        file.write(json_data)
+        file.close()
+        

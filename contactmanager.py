@@ -73,8 +73,9 @@ def create_contact():
     if notes: new_contact.notes.append(notes)
     
     new_contact.log_contact()
+
     
-def view_contacts():
+def view_all_contacts():
     call('clear')
     contacts = ContactBook(contact_file)
     all_contact_objs = contacts.pull_contacts()
@@ -90,6 +91,7 @@ def view_contacts():
         else:
             print(' - No notes. ')
         print('\n ------------------------------ \n')
+
    
 def find_contact():
     call('clear')
@@ -126,9 +128,7 @@ def find_contact():
             # input(' [!] Press enter to retry.')
             # find_contact()
             print(" [X] Because I can't fix this recursion bug,\n the program will now exit.")
-            sys.exit()
-
-            
+            sys.exit()          
     call('clear')
     # Redirect if found_contacts list is empty.
     if not found_contacts:
@@ -137,6 +137,8 @@ def find_contact():
         home_ui()
     # If multiple objects found, each object is given an 
     # ID and user selects object with input.
+    elif len(found_contacts) == 1:
+        display_contact(found_contacts[0])
     elif len(found_contacts) > 1:
         print(f" [!] Contacts found: {str(len(found_contacts))}.")
         input(' [!] Press enter to view details.')
@@ -163,10 +165,64 @@ def find_contact():
             # Find and return 
             for x in found_contacts:
                 if x["id"] == selected_contact:
-                    return x 
+                    display_contact(x)
             print(' [X] Error: not a valid ID number.')
             print(' [X] Try again.')
+
+
+def display_contact(contact_dict):
+    call('clear')
+    obj = contact_dict
+    print('\n ------------------------------ \n')
+    print(' - Name : ' + obj['name'])
+    print(' - Phone: ' + obj['phone'])
+    print(' - Email: ' + obj['email'])
+    print(' - Address: ' + obj['address'])
+    if obj['notes']:
+        print(' - Notes: ')
+        for note in obj['notes']:
+            print('   * ' + note)
+    else:
+        print(' - No notes. ')
+    print('\n ------------------------------ \n')
+    print(' [!] Select an option: ')
+    print(' [E] - Edit, [D] - Delete, [ENTER] - Return to menu \n')
+    select = input(' [>] ')
+    if select.lower() == 'e':
+        edit_contact(contact_dict)
+    
+
+
+def edit_contact(contact_dict):
+    call('clear')
+    contactbook = ContactBook(contact_file)
+    all_contacts = contactbook.pull_contacts()
+    target_contact_index = all_contacts.index(contact_dict)
+    original_obj = all_contacts[target_contact_index]
+    obj = contact_dict
+    print(f' [!] Enter the attribute for {contact_dict["name"]} you\'d like to change.')
+    target_attr = input(' [>] ')
+    try:
+        original_attr = obj[target_attr]
+    except KeyError:
+        print('[X] Error: "' + target_attr + '" is not a defined attribute.')
+        print(' [X] Press enter to try again.')
+        input()
+        edit_contact(obj)
+    call('clear')
+    print(f'[!] The original {target_attr.lower()} for {obj["name"]} is {original_attr}.')
+    print(' [!] Enter the new value and press enter.')
+    new_value = input(f' [+] New {target_attr.lower()}: ')
+    obj[target_attr] = new_value
+    call('clear')
+    print(f' [+] Press enter to save new {target_attr.lower()} for {original_obj["name"]}')
+    input(f' [+] New {target_attr.lower()}: ' + new_value + ' ')
+    print(' [+] Saving...')
+    all_contacts[target_contact_index] = obj
+    contactbook.update_contacts(all_contacts)
+    print(' [+] Changes saved!')
         
+    
 ######################################################
 
 def home_ui():
@@ -185,7 +241,7 @@ def home_ui():
     elif select == 'n':
         create_contact()
     elif select == 'v':
-        view_contacts()
+        view_all_contacts()
     elif select == 's':
         find_contact()
     elif select == 'sudo':
@@ -202,6 +258,14 @@ def home_ui():
 # Testing #
 def testing():
     print(' ### TESTING ###')
+    test_dict = {
+            "name": "test1",
+            "phone": "test2",
+            "email": "test3",
+            "address": "test4",
+            "notes": ["test5","test6","test7"]
+        }
+    edit_contact(test_dict)
     
  
 ######################################################
