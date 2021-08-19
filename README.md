@@ -1,6 +1,6 @@
 # Contact-Book
 
-<h2> Information <h2> 
+<h2> Information </h2> 
 <ul>
   <li> Started 08/18/2021 </li></ul>
  
