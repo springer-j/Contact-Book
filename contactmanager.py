@@ -190,8 +190,12 @@ def display_contact(contact_dict):
     select = input(' [>] ')
     if select.lower() == 'e':
         edit_contact(contact_dict)
+    elif select.lower() == 'd':
+        delete_contact(contact_dict)
+    else:
+        home_ui()
     
-
+    
 
 def edit_contact(contact_dict):
     call('clear')
@@ -221,6 +225,34 @@ def edit_contact(contact_dict):
     all_contacts[target_contact_index] = obj
     contactbook.update_contacts(all_contacts)
     print(' [+] Changes saved!')
+        
+
+def delete_contact(contact_dict):
+    call('clear')
+    print(' [!] WARNING ')
+    print(' [!] Deleting a contact cannot be reversed and all data will be lost from program data.')
+    print(f' [!] Are you sure you want to delete all data for {contact_dict["name"]}?')
+    print(' [!] Type DELETE to proceed. \n')
+    confirm = input(' [X] ')
+    if confirm == 'DELETE':
+        call('clear')
+        print(' [-] Confirmed.')
+        print(f' [-] Deleting data for {contact_dict["name"]}...')
+        contactbook = ContactBook(contact_file)
+        print(' ... ')
+        all_contacts = contactbook.pull_contacts()
+        print(' ... ')
+        all_contacts.remove(contact_dict)
+        print(' ... ')
+        contactbook.update_contacts(all_contacts)
+        print(' ... ')
+        print(f' [!] {contact_dict["name"]} removed.')
+        input(' [>] Press enter to return to the menu.')
+        home_ui()
+    else:
+        print(' [X] Denied.')
+        input(' [X] Press enter to return to the menu.')
+        home_ui()
         
     
 ######################################################
