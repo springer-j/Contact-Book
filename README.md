@@ -12,5 +12,6 @@
   </ul>
 <h2> To Do's </h2>
 <ul>
-  <li> Add metadata for each contact - permanent IDs, time created, etc. </li>
+  <li> Add metadata for each contact - permanent IDs, time/date created, etc. </li>
+  <li> Add custom lists for work, school, etc. </li>
   </ul>
