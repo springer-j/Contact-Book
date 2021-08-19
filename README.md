@@ -10,3 +10,7 @@
   <li>"Passkey" and "sudo" elements are included so I don't accidentally erase everything during testing.<br>Not intended for any real security.</li>
     
   </ul>
+<h2> To Do's </h2>
+<ul>
+  <li> Add metadata for each contact - permanent IDs, time created, etc. </li>
+  </ul>
