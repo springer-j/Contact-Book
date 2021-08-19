@@ -1,5 +1,11 @@
 # Contact-Book
 
-<h3> Information <h3> 
+<h2> Information <h2> 
 <ul>
-  <li> Started 08/18/2021 </li>
+  <li> Started 08/18/2021 </li></ul>
+ 
+  <h2>Updates and Changes </h2>
+  <ul>
+  <li>"Passkey" and "sudo" elements are included so I don't accidentally erase everything during testing.<br>Not intended for any real security.</li>
+    
+  </ul>
