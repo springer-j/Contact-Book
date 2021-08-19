@@ -14,4 +14,5 @@
 <ul>
   <li> Add metadata for each contact - permanent IDs, time/date created, etc. </li>
   <li> Add custom lists for work, school, etc. </li>
+  <li> Add pages to "view all contacts" display.</li>
   </ul>
