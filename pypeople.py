@@ -87,10 +87,13 @@ def view_all_contacts():
         print('- Address: ' + obj['address'])
         if obj['notes']:
             print(' - Notes: ')
-            print('\t - ' + note for note in obj['notes'])
+            for note in obj['notes']:
+                print('    * ' + note)
         else:
             print(' - No notes. ')
         print('\n ------------------------------ \n')
+    input(' [!] Press enter to return to menu.')
+    home_ui()
 
    
 def find_contact():
@@ -114,7 +117,7 @@ def find_contact():
             # If the target value matches the attr,
             # append object to found_contacts list.
             sample = contact[search_char.lower()]
-            if value.lower() in sample:
+            if value.lower() in sample.lower():
                 found_contacts.append(contact)
         except KeyError:
             # If the user inputs an attribute that isn't in the object,
@@ -173,11 +176,13 @@ def find_contact():
 def display_contact(contact_dict):
     call('clear')
     obj = contact_dict
+    # Display contact 
     print('\n ------------------------------ \n')
     print(' - Name : ' + obj['name'])
     print(' - Phone: ' + obj['phone'])
     print(' - Email: ' + obj['email'])
     print(' - Address: ' + obj['address'])
+    # Display all notes store, if there are any
     if obj['notes']:
         print(' - Notes: ')
         for note in obj['notes']:
@@ -185,9 +190,11 @@ def display_contact(contact_dict):
     else:
         print(' - No notes. ')
     print('\n ------------------------------ \n')
+    # User options to edit/delete/return home
     print(' [!] Select an option: ')
     print(' [E] - Edit, [D] - Delete, [ENTER] - Return to menu \n')
     select = input(' [>] ')
+    # Route user dependent on selection
     if select.lower() == 'e':
         edit_contact(contact_dict)
     elif select.lower() == 'd':
@@ -298,7 +305,6 @@ def testing():
         }
     edit_contact(test_dict)
     
- 
 ######################################################
 
 if __name__ == '__main__':
@@ -308,5 +314,4 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print('\n [!] Proccess cancelled.')
         
-
 ######################################################
